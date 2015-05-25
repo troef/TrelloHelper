@@ -17,13 +17,11 @@
     "content_scripts": [
         {
             "matches": ["https://trello.com/b/*"],
-            "css": ["lib/TrelloHelper/css/exportpopup.css"],
+            "css": ["lib/TrelloHelper/css/trelloext.css"],
             "js": [
                 "lib/jquery-2.1.1.min.js",
                 "lib/TrelloHelper/js/exportpopup.js",
-
                 "lib/TrelloUI/trelloui.js",
-
                 "scripts/main.js"
             ],
             "run_at": "document_idle"
@@ -38,7 +36,8 @@
         "128": "icons/128.png"
     },
     "web_accessible_resources": [
-        "settings/index.html"
+        "settings/index.html",
+        "fonts/trelloext/fonts/*"
     ],
     "options_page": "settings/index.html",
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"

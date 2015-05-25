@@ -5,10 +5,11 @@ var tui = new TrelloUI({
     });
 
 chrome.extension.sendMessage({}, function (response) {});
-
 document.addEventListener('trelloui-listsready', function() {
-    var popover = $(".pop-over");
+    insertZoomButtons();
+    insertEisenhowerButton();
 
+    var popover = $(".pop-over");
     tep.init();
 
     $('.list-header-menu-icon').click(function (event) {
@@ -23,6 +24,29 @@ document.addEventListener('trelloui-listsready', function() {
         }, 50);
     });
 });
+
+function insertZoomButtons() {
+    $('.list-header-name').append('<a href="javascript:void(0)" class="btn-zoom-list"><div class="icon trelloext-icon-arrows-expand"></div></a>');
+    $('.btn-zoom-list').click(function(e) {
+        toggleZoom($(this).closest('.list'));
+    });
+}
+function insertEisenhowerButton() {
+    $('<a id="toggle_eisenhower" class="board-header-btn eisenhower-btn" href="#" title="Toggle Eisenhower Qaudrant view."><span class="board-header-btn-icon icon-sm icon trelloext-icon-thumbnails-large"></span><span class="board-header-btn-text">Eisenhower</span></a>').insertAfter('#permission-level');
+    $('#toggle_eisenhower').click(function(e) {
+        $('#board').toggleClass('eisenhower');
+    });
+}
+
+function toggleZoom(current_list) {
+        if( $(current_list).hasClass('fullscreen') ) {
+            $(current_list).removeClass('fullscreen');
+            $('.list').show();
+        } else {
+            $('.list').not($(current_list)).hide();
+            $(current_list).addClass('fullscreen');
+        }
+}
 
 function exportList(event) {
     tep.hide();
